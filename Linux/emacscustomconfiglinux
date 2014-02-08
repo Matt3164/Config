@@ -1,0 +1,100 @@
+(load-file "~/.emacs.d/themes/zenburn-theme.el")
+
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+(column-number-mode t)
+
+(setq truncate-partial-width-windows nil)
+(setq ring-bell-function 'ignore)
+(display-time-mode t)
+
+
+(setq c-default-style "k&amp;r")
+(setq c-basic-offset 8)
+
+(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/popup-el")
+
+(require 'package)
+(package-initialize)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(require 'ido)
+(ido-mode t)
+
+;; Barre d'outils et curseur
+
+(tool-bar-mode 0)
+(blink-cursor-mode 0)
+
+;;Quelques raccourcis utiles
+
+(global-set-key [C-up] 'scroll-one-line-up)
+(global-set-key [C-down] 'scroll-one-line-down)
+(global-set-key "\C-z" 'undo)
+
+(defun scroll-one-line-up ()
+  "Scroll text of cureent window upward one line"
+  (interactive)
+  (scroll-up 1))
+
+(defun scroll-one-line-down ()
+  "Scroll text of cureent window upward one line"
+  (interactive)
+  (scroll-down 1))
+
+;; Column number
+(column-number-mode t)
+
+;;Délimiteur parenthèses
+
+(require 'paren)
+(show-paren-mode 1)
+
+(setq ispell-dictionary "francais")
+
+;;Mode majeur
+
+(setq default-major-mode 'text-mode)
+;;auto-fill
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+(setq kill-whole-line t)
+
+(setq completion-ignore-case t)
+
+(setq-default indent-tabs-mode nil)
+
+
+;; CC - mode
+(require 'cc-mode)
+(setq-default c-basic-offset 4 c-default-style "linux")
+(setq-default tab-width 4 indent-tabs-mode t)
+(define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
+
+(add-to-list 'load-path "~/.emacs.d/packages/yasnippet")
+(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/packages")
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/auto-complete-20140208.653/dict")
+(ac-config-default)
+
+(ac-set-trigger-key "TAB")
+(ac-set-trigger-key "<tab>")
+
+(require 'auto-complete-clang)
+(define-key c++-mode-map (kbd "C-<tab>") 'ac-complete-clang)
+
+(require 'member-functions)
+(setq mf--source-file-extension "cpp")
+
+(require 'flymake)
+
+
